@@ -9,9 +9,17 @@ import entity.Entity;
 import exception.DatabaseException;
 
 public class Database {
+    private static Database instance;
     private Map<Class<? extends Entity>, DatabaseTableI<? extends Entity>> tables = new HashMap<>();
 
     public Database() {
+    }
+
+    public static Database getInstance() {
+        if (instance == null) {
+            instance = new Database();
+        }
+        return instance;
     }
 
     private <T extends Entity> DatabaseTableI<T> getTable(Class<T> clazz) {
