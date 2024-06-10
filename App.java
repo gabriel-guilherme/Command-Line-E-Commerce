@@ -1,15 +1,25 @@
-import database.Database;
-import entity.Product;
+import java.util.Scanner;
+
+import dao.AdminDao;
+import entity.Admin;
+import exception.DAOException;
 import exception.DatabaseException;
+import view.MainView;
 
 public class App {
     public static void main(String[] args) throws DatabaseException {
-        Database database = Database.getInstance();
+        AdminDao adminDao = new AdminDao();
+        try {
+            adminDao.save(new Admin("123"));
+        } catch (DAOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        Product produto = new Product(123, 4.00, "leite", "comida");
-        database.save(Product.class, produto);
-        System.out.println(database.findById(Product.class, 123));
-        database.delete(Product.class, 123);
-        System.out.print(database.findById(Product.class, 123));
+        Scanner scanner = new Scanner(System.in);
+        MainView mainView = new MainView(scanner);
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        mainView.startView();
     }
 }

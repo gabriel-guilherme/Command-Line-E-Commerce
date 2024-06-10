@@ -17,6 +17,7 @@ public class DatabaseTable<T extends Entity> implements DatabaseTableI<T> {
         if (entity == null) {
             throw new DatabaseException("Entity cannot be null");
         }
+        entity.setId(table.size() + 1);
         table.put(entity.getId(), entity);
     }
 
