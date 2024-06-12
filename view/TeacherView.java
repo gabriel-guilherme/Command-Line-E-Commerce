@@ -14,10 +14,11 @@ public class TeacherView implements View {
     private TeacherService teacherService = new TeacherService();
     private AddExamView addExamView;
 
-    public TeacherView(Scanner scanner, MainView mainView) {
+    public TeacherView(Scanner scanner, MainView mainView, Teacher teacher) {
         this.scanner = scanner;
         this.mainView = mainView;
-        this.addExamView = new AddExamView(scanner, this);
+        this.teacher = teacher;
+        this.addExamView = new AddExamView(scanner, this, teacher);
     }
 
     public void setTeacher(Teacher teacher) {
@@ -40,7 +41,7 @@ public class TeacherView implements View {
         if (input.equals("1")) {
             clearScreen();
 
-            addExamView.setTeacher(teacher);
+            // addExamView.setTeacher(teacher);
             addExamView.startView();
         } else if (input.equals("2")) {
 

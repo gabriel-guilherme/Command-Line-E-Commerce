@@ -78,6 +78,16 @@ public class Question extends Entity {
 
     @Override
     public String toString() {
-        return "Question{" + getDescription() + getType() + getAlternatives() + "}";
+        StringBuilder formatedAlternatives = new StringBuilder();
+        for (int i = 0; i < getAlternatives().size(); i++) {
+            formatedAlternatives.append(i + 1).append(". ").append(getAlternatives().get(i)).append("\n");
+        }
+
+        if (this.getType()) {
+            return getDescription() + "\n\n" + formatedAlternatives.toString() + "\n";
+        } else {
+            return getDescription();
+        }
+
     }
 }

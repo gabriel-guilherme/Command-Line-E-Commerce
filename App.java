@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import dao.AdminDao;
+import dao.ExamDao;
 import entity.Admin;
 import exception.DAOException;
 import exception.DatabaseException;
@@ -21,5 +22,16 @@ public class App {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         mainView.startView();
+
+        /*
+         * ExamDao examDao = new ExamDao();
+         * 
+         * try {
+         * System.out.println(examDao.findAll());
+         * } catch (DAOException e) {
+         * // TODO Auto-generated catch block
+         * e.printStackTrace();
+         * }
+         */
     }
 }

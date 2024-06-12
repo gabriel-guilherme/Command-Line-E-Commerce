@@ -36,11 +36,14 @@ public class MainView implements View {
         } else if (input.equals("4")) {
             passphraseView.startView();
         } else if (input.equals("5")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
         }
 
         scanner.close();
     }
 
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }

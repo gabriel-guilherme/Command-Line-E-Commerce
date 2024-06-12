@@ -22,24 +22,20 @@ public class StudentLoginView implements View {
 
     @Override
     public void startView() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira a matricula para login:");
         String matriculation = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira sua senha:");
         String password = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         try {
             Student newStudent = authenticationService.login(new Student(matriculation, password));
 
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Login realizado com sucesso.\n");
 
             studentView.setStudent(newStudent);
@@ -53,17 +49,16 @@ public class StudentLoginView implements View {
              * }
              */
 
-        } catch (DAOException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-
-            System.out.println(e.getMessage() + "\n");
-        } catch (AuthenticationException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+        } catch (AuthenticationException | DAOException e) {
+            clearScreen();
 
             System.out.println(e.getMessage() + "\n");
             mainView.startView();
         }
+    }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

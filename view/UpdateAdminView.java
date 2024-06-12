@@ -27,14 +27,12 @@ public class UpdateAdminView implements View {
         try {
             authenticationService.updateAdmin(input);
 
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Palavra-chave modificada.\n");
 
             adminView.startView();
         } catch (DAOException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
 
             System.out.println(e.getMessage() + "\n");
             adminView.startView();
@@ -43,4 +41,8 @@ public class UpdateAdminView implements View {
         scanner.close();
     }
 
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }

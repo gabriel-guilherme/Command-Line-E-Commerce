@@ -12,38 +12,35 @@ public class TeacherLoginView implements View {
     private AuthenticationService authenticationService = new AuthenticationService();
     private MainView mainView;
     private Scanner scanner;
-    private TeacherView TeacherView;
+    private TeacherView teacherView;
 
     TeacherLoginView(MainView mainView, Scanner scanner) {
         this.mainView = mainView;
         this.scanner = scanner;
-        this.TeacherView = new TeacherView(scanner, mainView);
+        // this.teacherView = new TeacherView(scanner, mainView);
     }
 
     @Override
     public void startView() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira o nome de usuário para login:");
         String username = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira sua senha:");
         String password = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         try {
             Teacher newTeacher = authenticationService.login(new Teacher(username, password));
 
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Login realizado com sucesso.\n");
 
-            TeacherView.setTeacher(newTeacher);
-            TeacherView.startView();
+            teacherView = new TeacherView(scanner, mainView, newTeacher);
+            // teacherView.setTeacher(newTeacher);
+            teacherView.startView();
             /*
              * else {
              * System.out.print("\033[H\033[2J");
@@ -53,17 +50,16 @@ public class TeacherLoginView implements View {
              * }
              */
 
-        } catch (DAOException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-
-            System.out.println(e.getMessage() + "\n");
-        } catch (AuthenticationException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+        } catch (DAOException | AuthenticationException e) {
+            clearScreen();
 
             System.out.println(e.getMessage() + "\n");
             mainView.startView();
         }
+    }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

@@ -20,42 +20,36 @@ public class TeacherRegisterView implements View {
 
     @Override
     public void startView() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira o seu nome:");
         String name = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira o nome de usuario para registro:");
         String username = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         System.out.println("Insira sua senha:");
         String password = scanner.nextLine();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
 
         try {
             authenticationService.register(new Teacher(username, password, name));
 
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Cadastro realizado com sucesso.\n");
-        } catch (DAOException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-
-            System.out.println(e.getMessage() + "\n");
-        } catch (AuthenticationException e) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+        } catch (DAOException | AuthenticationException e) {
+            clearScreen();
 
             System.out.println(e.getMessage() + "\n");
         }
 
         adminView.startView();
+    }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

@@ -26,23 +26,25 @@ public class AdminView implements View {
         String input = scanner.nextLine();
 
         if (input.equals("1")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
 
             teacherRegisterView.startView();
         } else if (input.equals("2")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
 
             updateAdminView.startView();
         } else if (input.equals("3")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
 
             mainView.startView();
         }
 
         scanner.close();
+    }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }
