@@ -1,13 +1,13 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class AdminView implements View {
-    private Scanner scanner;
+public class AdminView extends UiView {
     private MainView mainView;
     private TeacherRegisterView teacherRegisterView;
     private UpdateAdminView updateAdminView;
-    // private StudentService studentService = new StudentService();
 
     AdminView(MainView mainView, Scanner scanner) {
         this.scanner = scanner;
@@ -18,12 +18,10 @@ public class AdminView implements View {
 
     @Override
     public void startView() {
-        // System.out.print("\033[H\033[2J");
-        // System.out.flush();
 
-        System.out.println("ADMIN MENU\n\n1. Registrar professor\n\n2. Mudar palavra-chave.\n\n3. Voltar\n");
-
-        String input = scanner.nextLine();
+        ArrayList<String> options = new ArrayList<>(
+                Arrays.asList("Registrar professor", "Mudar palavra-chave", "Voltar"));
+        String input = bakeMenu("ADMIN MENU", options);
 
         if (input.equals("1")) {
             clearScreen();
@@ -40,11 +38,6 @@ public class AdminView implements View {
         }
 
         scanner.close();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
 }

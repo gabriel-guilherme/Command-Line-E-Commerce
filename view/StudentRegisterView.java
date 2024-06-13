@@ -8,10 +8,10 @@ import entity.Student;
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class StudentRegisterView implements View {
+public class StudentRegisterView extends UiView {
     private AuthenticationService authenticationService = new AuthenticationService();
     private MainView mainView;
-    private Scanner scanner;
+    // private Scanner scanner;
 
     StudentRegisterView(MainView mainView, Scanner scanner) {
         this.mainView = mainView;
@@ -21,17 +21,14 @@ public class StudentRegisterView implements View {
     @Override
     public void startView() {
         clearScreen();
+        String name = bakeMenu("Insira o seu nome:");
 
-        System.out.println("Insira o seu nome:");
-        String name = scanner.nextLine();
         clearScreen();
+        String matriculation = bakeMenu("Insira a matricula para registro:");
 
-        System.out.println("Insira a matricula para registro:");
-        String matriculation = scanner.nextLine();
         clearScreen();
+        String password = bakeMenu("Insira sua senha:");
 
-        System.out.println("Insira sua senha:");
-        String password = scanner.nextLine();
         clearScreen();
 
         try {
@@ -46,10 +43,5 @@ public class StudentRegisterView implements View {
         }
 
         mainView.startView();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }

@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import entity.Teacher;
@@ -7,9 +9,8 @@ import exception.DAOException;
 import exception.TeacherException;
 import service.TeacherService;
 
-public class TeacherView implements View {
+public class TeacherView extends UiView {
     private Teacher teacher;
-    private Scanner scanner;
     private MainView mainView;
     private TeacherService teacherService = new TeacherService();
     private AddExamView addExamView;
@@ -32,23 +33,22 @@ public class TeacherView implements View {
     @Override
     public void startView() {
 
-        System.out.println(
-                "BEM VINDO " + teacher.getName()
-                        + " MENU DO PROFESSOR\n\n1. Adicionar prova\n\n2. Corrigir provas\n\n3. Registrar nova matéria\n\n4. Voltar\n");
+        ArrayList<String> options = new ArrayList<>(
+                Arrays.asList("Adicionar prova", "Corrigir provas", "Registrar nova matéria", "Voltar"));
 
-        String input = scanner.nextLine();
+        String input = bakeMenu("BEM VINDO " + teacher.getName() + " MENU DO PROFESSOR", options);
 
         if (input.equals("1")) {
             clearScreen();
 
-            // addExamView.setTeacher(teacher);
             addExamView.startView();
         } else if (input.equals("2")) {
 
         } else if (input.equals("3")) {
             clearScreen();
-            System.out.println("Informe a matéria que você quer registrar:\n");
-            input = scanner.nextLine();
+
+            input = bakeMenu("Informe a matéria que você quer registrar:");
+
             try {
                 teacherService.register(teacher, input);
                 clearScreen();
@@ -63,8 +63,4 @@ public class TeacherView implements View {
         }
     }
 
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }

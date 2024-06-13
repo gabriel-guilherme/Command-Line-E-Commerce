@@ -2,11 +2,12 @@ package view;
 
 import java.util.Scanner;
 
+import javax.naming.AuthenticationException;
+
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class UpdateAdminView implements View {
-    private Scanner scanner;
+public class UpdateAdminView extends UiView {
     private AdminView adminView;
     private AuthenticationService authenticationService = new AuthenticationService();
 
@@ -17,12 +18,8 @@ public class UpdateAdminView implements View {
 
     @Override
     public void startView() {
-        // System.out.print("\033[H\033[2J");
-        // System.out.flush();
 
-        System.out.println("Insira a nova palavra-chave.\n");
-
-        String input = scanner.nextLine();
+        String input = bakeMenu("Insira a nova palavra-chave");
 
         try {
             authenticationService.updateAdmin(input);
@@ -31,7 +28,7 @@ public class UpdateAdminView implements View {
             System.out.println("Palavra-chave modificada.\n");
 
             adminView.startView();
-        } catch (DAOException e) {
+        } catch (DAOException | AuthenticationException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");
@@ -39,10 +36,5 @@ public class UpdateAdminView implements View {
         }
 
         scanner.close();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }

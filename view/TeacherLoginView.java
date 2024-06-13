@@ -8,28 +8,24 @@ import entity.Teacher;
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class TeacherLoginView implements View {
+public class TeacherLoginView extends UiView {
     private AuthenticationService authenticationService = new AuthenticationService();
     private MainView mainView;
-    private Scanner scanner;
     private TeacherView teacherView;
 
     TeacherLoginView(MainView mainView, Scanner scanner) {
         this.mainView = mainView;
         this.scanner = scanner;
-        // this.teacherView = new TeacherView(scanner, mainView);
     }
 
     @Override
     public void startView() {
         clearScreen();
+        String username = bakeMenu("Insira o nome de usuário para login:");
 
-        System.out.println("Insira o nome de usuário para login:");
-        String username = scanner.nextLine();
         clearScreen();
+        String password = bakeMenu("Insira sua senha:");
 
-        System.out.println("Insira sua senha:");
-        String password = scanner.nextLine();
         clearScreen();
 
         try {
@@ -39,16 +35,8 @@ public class TeacherLoginView implements View {
             System.out.println("Login realizado com sucesso.\n");
 
             teacherView = new TeacherView(scanner, mainView, newTeacher);
-            // teacherView.setTeacher(newTeacher);
+
             teacherView.startView();
-            /*
-             * else {
-             * System.out.print("\033[H\033[2J");
-             * System.out.flush();
-             * System.out.println("Usuário não encontrado.\n");
-             * 
-             * }
-             */
 
         } catch (DAOException | AuthenticationException e) {
             clearScreen();
@@ -58,8 +46,4 @@ public class TeacherLoginView implements View {
         }
     }
 
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }

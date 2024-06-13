@@ -10,9 +10,9 @@ import exception.DAOException;
 import exception.ExamException;
 import service.ExamService;
 
-public class AddQuestionView {
+public class AddQuestionView extends UiView {
 
-    private Scanner scanner;
+    // private Scanner scanner;
     private TeacherView teacherView;
     private ExamService examService = new ExamService();
 
@@ -43,17 +43,21 @@ public class AddQuestionView {
     }
 
     public void startView() {
-        List<Question> questions = new ArrayList<Question>();
-        System.out.println("1. Fazer questões pelo console\n\n2. Fazer questões por arquivo\n");
-        int input = scanner.nextInt();
-        scanner.nextLine();
+        try {
+            List<Question> questions = new ArrayList<Question>();
 
-        if (input == 1) {
-            clearScreen();
-            System.out.println("Informe quantas questões terá a prova:\n");
-            input = scanner.nextInt();
-            scanner.nextLine();
+            int input = Integer.parseInt(bakeMenu("Informe quantas questões terá a prova"));
 
+            System.out.println(input);
+
+            if (input <= 0) {
+                clearScreen();
+                System.out.println("Erro: Por favor, insira um número válido.\n");
+                teacherView.startView();
+                return;
+            }
+
+            //////////////// MUDAR///////////////////////
             for (int i = 0; i < input; i++) {
                 clearScreen();
                 System.out.println("Informe o tipo da questão " + (i + 1) + ":\n");
@@ -89,30 +93,28 @@ public class AddQuestionView {
                 }
 
                 if (description.equals("") || value == null) {
+                    clearScreen();
                     System.out.println("Operação cancelada devido a espaços em branco.\n");
                     teacherView.startView();
                     return;
                 }
 
             }
-        } else if (input == 2) {
 
-        }
-
-        try {
             examService.addExam(new Exam(name, subject, questions));
         } catch (DAOException | ExamException e) {
+            clearScreen();
             System.out.println(e.getMessage());
+            return;
+        } catch (NumberFormatException e) {
+            clearScreen();
+            System.out.println("\"Erro: Por favor, insira um número válido.\n");
+            return;
         }
 
         clearScreen();
         System.out.println("Prova cadastrada.\n");
 
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
 }

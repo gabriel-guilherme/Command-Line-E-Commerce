@@ -3,9 +3,8 @@ package view;
 import java.util.List;
 import java.util.Scanner;
 
-public class UiView {
-    private StringBuilder formattedMenu;
-    private Scanner scanner;
+public class UiView implements View {
+    protected Scanner scanner;
 
     public void startView() {
     };
@@ -14,7 +13,7 @@ public class UiView {
         // clearScreen();
         System.out.println(description + "\n");
 
-        System.out.println(formatMenu(options) + "\n");
+        System.out.println(formatMenu(options));
 
         return scanner.nextLine();
     }
@@ -30,13 +29,13 @@ public class UiView {
     private String formatMenu(List<String> options) {
         StringBuilder formattedSubjects = new StringBuilder();
         for (int i = 0; i < options.size(); i++) {
-            formattedSubjects.append(i + 1).append(". ").append(options.get(i)).append("\n");
+            formattedSubjects.append(i + 1).append(". ").append(options.get(i)).append("\n\n");
         }
 
         return formattedSubjects.toString();
     }
 
-    private void clearScreen() {
+    protected void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

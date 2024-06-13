@@ -7,8 +7,7 @@ import javax.naming.AuthenticationException;
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class PassphraseView implements View {
-    private Scanner scanner;
+public class PassphraseView extends UiView {
     private MainView mainView;
     private AdminView adminView;
     private AuthenticationService authenticationService = new AuthenticationService();
@@ -23,9 +22,7 @@ public class PassphraseView implements View {
     public void startView() {
         clearScreen();
 
-        System.out.println("ADMIN\n\nInsira a senha.\n");
-
-        String input = scanner.nextLine();
+        String input = bakeMenu("ADMIN\n\nInsira a senha");
 
         try {
             clearScreen();
@@ -40,11 +37,6 @@ public class PassphraseView implements View {
         }
 
         scanner.close();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
 }

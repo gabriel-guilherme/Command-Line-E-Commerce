@@ -82,7 +82,11 @@ public class AuthenticationService {
         return;
     }
 
-    public void updateAdmin(String password) throws DAOException {
+    public void updateAdmin(String password) throws DAOException, AuthenticationException {
+        if (password == "") {
+            throw new AuthenticationException("Operação cancelada devido a espaços em branco.");
+        }
+
         AdminDao adminDao = new AdminDao();
 
         Admin admin = adminDao.findById(1).get();

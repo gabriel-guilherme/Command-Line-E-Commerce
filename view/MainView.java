@@ -1,9 +1,10 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class MainView implements View {
-    private Scanner scanner;
+public class MainView extends UiView {
     private StudentLoginView studentLoginView;
     private StudentRegisterView studentRegisterView;
     private TeacherLoginView teacherLoginView;
@@ -19,21 +20,23 @@ public class MainView implements View {
 
     @Override
     public void startView() {
-        // System.out.print("\033[H\033[2J");
-        // System.out.flush();
 
-        System.out.println(
-                "MENU PRINCIPAL\n\n1. Entrar como aluno\n\n2. Entrar como professor\n\n3. Criar nova conta\n\n4. Admin\n\n5. Sair\n");
+        ArrayList<String> options = new ArrayList<>(Arrays.asList("Entrar como aluno", "Entrar como professor",
+                "Criar nova conta", "Admin", "Sair"));
 
-        String input = scanner.nextLine();
+        String input = bakeMenu("MENU PRINCIPAL", options);
 
         if (input.equals("1")) {
+            clearScreen();
             studentLoginView.startView();
         } else if (input.equals("2")) {
+            clearScreen();
             teacherLoginView.startView();
         } else if (input.equals("3")) {
+            clearScreen();
             studentRegisterView.startView();
         } else if (input.equals("4")) {
+            clearScreen();
             passphraseView.startView();
         } else if (input.equals("5")) {
             clearScreen();
@@ -42,8 +45,4 @@ public class MainView implements View {
         scanner.close();
     }
 
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }

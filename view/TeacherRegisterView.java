@@ -8,10 +8,9 @@ import entity.Teacher;
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class TeacherRegisterView implements View {
+public class TeacherRegisterView extends UiView {
     private AuthenticationService authenticationService = new AuthenticationService();
     private AdminView adminView;
-    private Scanner scanner;
 
     TeacherRegisterView(AdminView adminView, Scanner scanner) {
         this.adminView = adminView;
@@ -21,17 +20,14 @@ public class TeacherRegisterView implements View {
     @Override
     public void startView() {
         clearScreen();
+        String name = bakeMenu("Insira o seu nome");
 
-        System.out.println("Insira o seu nome:");
-        String name = scanner.nextLine();
         clearScreen();
+        String username = bakeMenu("Insira o nome de usuario para registro:");
 
-        System.out.println("Insira o nome de usuario para registro:");
-        String username = scanner.nextLine();
         clearScreen();
+        String password = bakeMenu("Insira sua senha:");
 
-        System.out.println("Insira sua senha:");
-        String password = scanner.nextLine();
         clearScreen();
 
         try {
@@ -48,8 +44,4 @@ public class TeacherRegisterView implements View {
         adminView.startView();
     }
 
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }

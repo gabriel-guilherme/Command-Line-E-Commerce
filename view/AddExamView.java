@@ -1,14 +1,14 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
-
 import java.util.Scanner;
 
 import entity.Teacher;
 
-public class AddExamView implements View {
+public class AddExamView extends UiView {
     private Teacher teacher;
-    private Scanner scanner;
     private TeacherView teacherView;
     private AddQuestionView addQuestionView;
 
@@ -16,7 +16,6 @@ public class AddExamView implements View {
         this.scanner = scanner;
         this.teacherView = teacherView;
         this.teacher = teacher;
-        // this.addQuestionView = new AddQuestionView(scanner, teacherView);
     }
 
     public void setTeacher(Teacher teacher) {
@@ -33,23 +32,13 @@ public class AddExamView implements View {
         if (teacher.getSubjects() == null || teacher.getSubjects().isEmpty()) {
             System.out.println("Cadastre ao menos uma matéria para adicionar provas.\n");
         } else {
-            System.out.println("Insira o nome da prova:\n");
-            String name = scanner.nextLine();
+            String name = bakeMenu("Insira o nome da prova:");
 
             clearScreen();
 
-            System.out.println("Escolha a matéria referente a prova:\n");
-
-            StringBuilder formattedSubjects = new StringBuilder();
-            for (int i = 0; i < teacher.getSubjects().size(); i++) {
-                formattedSubjects.append(i + 1).append(". ").append(teacher.getSubjects().get(i)).append("\n");
-            }
-
-            System.out.print(formattedSubjects.toString() + "\n");
-
             try {
-                int input = scanner.nextInt();
-                scanner.nextLine();
+                int input = Integer.parseInt(bakeMenu("Escolha a matéria referente a prova:", teacher.getSubjects()));
+
                 String subject = teacher.getSubjects().get(input - 1);
 
                 clearScreen();
@@ -60,15 +49,23 @@ public class AddExamView implements View {
                     return;
                 }
 
-                // addQuestionView.setName(name);
-                // addQuestionView.setSubject(subject);
-                addQuestionView = new AddQuestionView(scanner, teacherView, name, subject);
-                addQuestionView.startView();
+                ArrayList<String> options = new ArrayList<>(
+                        Arrays.asList("Fazer questões pelo console", "Fazer questões por arquivo"));
 
-            } catch (InputMismatchException e) {
+                input = Integer.parseInt(bakeMenu("", options));
+
+                if (input == 1) {
+                    clearScreen();
+                    addQuestionView = new AddQuestionView(scanner, teacherView, name, subject);
+                    addQuestionView.startView();
+
+                } else if (input == 2) {
+
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
                 clearScreen();
                 System.out.println("Erro: Por favor, insira um número válido.\n");
-                scanner.nextLine();
             } catch (IndexOutOfBoundsException e) {
                 clearScreen();
                 System.out.println("Erro: O número escolhido não corresponde a nenhuma matéria disponível.\n");
@@ -76,10 +73,5 @@ public class AddExamView implements View {
         }
 
         teacherView.startView();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }
