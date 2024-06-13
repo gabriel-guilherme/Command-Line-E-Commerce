@@ -4,17 +4,17 @@ import java.util.Scanner;
 
 import javax.naming.AuthenticationException;
 
-import entity.Student;
+import entity.User;
 import exception.DAOException;
 import service.AuthenticationService;
 
-public class StudentRegisterView extends UiView {
+public class RegisterView extends UiView {
     private AuthenticationService authenticationService = new AuthenticationService();
-    private MainView mainView;
+    private UiView previousView;
     // private Scanner scanner;
 
-    StudentRegisterView(MainView mainView, Scanner scanner) {
-        this.mainView = mainView;
+    RegisterView(UiView previousView, Scanner scanner) {
+        this.previousView = previousView;
         this.scanner = scanner;
     }
 
@@ -32,7 +32,11 @@ public class StudentRegisterView extends UiView {
         clearScreen();
 
         try {
-            authenticationService.register(new Student(matriculation, password, name));
+            if (previousView instanceof AdminView) {
+                authenticationService.register(new User(matriculation, password, name, true));
+            } else {
+                authenticationService.register(new User(matriculation, password, name, false));
+            }
 
             clearScreen();
             System.out.println("Cadastro realizado com sucesso.\n");
@@ -42,6 +46,6 @@ public class StudentRegisterView extends UiView {
             System.out.println(e.getMessage() + "\n");
         }
 
-        mainView.startView();
+        previousView.startView();
     }
 }

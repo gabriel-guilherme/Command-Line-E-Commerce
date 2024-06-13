@@ -6,14 +6,14 @@ import java.util.Scanner;
 
 public class AdminView extends UiView {
     private MainView mainView;
-    private TeacherRegisterView teacherRegisterView;
+    private RegisterView registerView;
     private UpdateAdminView updateAdminView;
 
     AdminView(MainView mainView, Scanner scanner) {
         this.scanner = scanner;
         this.mainView = mainView;
         this.updateAdminView = new UpdateAdminView(this, scanner);
-        this.teacherRegisterView = new TeacherRegisterView(this, scanner);
+        this.registerView = new RegisterView(this, scanner);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class AdminView extends UiView {
         if (input.equals("1")) {
             clearScreen();
 
-            teacherRegisterView.startView();
+            registerView.startView();
         } else if (input.equals("2")) {
             clearScreen();
 

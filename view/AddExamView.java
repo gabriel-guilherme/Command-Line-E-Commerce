@@ -5,31 +5,31 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import entity.Teacher;
+import entity.User;
 
 public class AddExamView extends UiView {
-    private Teacher teacher;
+    private User user;
     private TeacherView teacherView;
     private AddQuestionView addQuestionView;
 
-    public AddExamView(Scanner scanner, TeacherView teacherView, Teacher teacher) {
+    public AddExamView(Scanner scanner, TeacherView teacherView, User user) {
         this.scanner = scanner;
         this.teacherView = teacherView;
-        this.teacher = teacher;
+        this.user = user;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacher(User user) {
+        this.user = user;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public User getTeacher() {
+        return user;
     }
 
     @Override
     public void startView() {
 
-        if (teacher.getSubjects() == null || teacher.getSubjects().isEmpty()) {
+        if (user.getSubjects() == null || user.getSubjects().isEmpty()) {
             System.out.println("Cadastre ao menos uma matéria para adicionar provas.\n");
         } else {
             String name = bakeMenu("Insira o nome da prova:");
@@ -37,9 +37,9 @@ public class AddExamView extends UiView {
             clearScreen();
 
             try {
-                int input = Integer.parseInt(bakeMenu("Escolha a matéria referente a prova:", teacher.getSubjects()));
+                int input = Integer.parseInt(bakeMenu("Escolha a matéria referente a prova:", user.getSubjects()));
 
-                String subject = teacher.getSubjects().get(input - 1);
+                String subject = user.getSubjects().get(input - 1);
 
                 clearScreen();
 

@@ -22,6 +22,7 @@ public class Database {
         return instance;
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends Entity> DatabaseTableI<T> getTable(Class<T> clazz) {
         return (DatabaseTableI<T>) tables.get(clazz);
     }

@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import entity.Teacher;
+import entity.User;
 import exception.DAOException;
 import exception.TeacherException;
 import service.TeacherService;
 
 public class TeacherView extends UiView {
-    private Teacher teacher;
+    private User user;
     private MainView mainView;
     private TeacherService teacherService = new TeacherService();
     private AddExamView addExamView;
 
-    public TeacherView(Scanner scanner, MainView mainView, Teacher teacher) {
+    public TeacherView(Scanner scanner, MainView mainView, User user) {
         this.scanner = scanner;
         this.mainView = mainView;
-        this.teacher = teacher;
-        this.addExamView = new AddExamView(scanner, this, teacher);
+        this.user = user;
+        this.addExamView = new AddExamView(scanner, this, user);
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacher(User user) {
+        this.user = user;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public User getTeacher() {
+        return user;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class TeacherView extends UiView {
         ArrayList<String> options = new ArrayList<>(
                 Arrays.asList("Adicionar prova", "Corrigir provas", "Registrar nova matéria", "Voltar"));
 
-        String input = bakeMenu("BEM VINDO " + teacher.getName() + " MENU DO PROFESSOR", options);
+        String input = bakeMenu("BEM VINDO " + user.getName() + " MENU DO PROFESSOR", options);
 
         if (input.equals("1")) {
             clearScreen();
@@ -50,7 +50,7 @@ public class TeacherView extends UiView {
             input = bakeMenu("Informe a matéria que você quer registrar:");
 
             try {
-                teacherService.register(teacher, input);
+                teacherService.register(user, input);
                 clearScreen();
             } catch (DAOException | TeacherException e) {
                 clearScreen();

@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dao.TeacherDao;
-import entity.Teacher;
+import dao.UserDao;
+import entity.User;
 import exception.DAOException;
 import exception.TeacherException;
 
 public class TeacherService {
 
-    public void register(Teacher teacher, String subject) throws DAOException, TeacherException {
+    public void register(User user, String subject) throws DAOException, TeacherException {
         if (subject.equals("")) {
             throw new TeacherException("Operação cancelada devido a espaços em branco");
         }
-        TeacherDao teacherDao = new TeacherDao();
+        UserDao userDao = new UserDao();
 
-        List<Teacher> foundUsers = teacherDao.findAll().stream()
-                .filter(user -> user.getLogin().equals(teacher.getLogin()))
+        List<User> foundUsers = userDao.findAll().stream()
+                .filter(currUser -> currUser.getLogin().equals(user.getLogin()))
                 .collect(Collectors.toList());
 
-        Teacher foundTeacher = foundUsers.get(0);
+        User foundTeacher = foundUsers.get(0);
 
         if (foundTeacher.getSubjects() == null) {
             foundTeacher.setSubjects(new ArrayList<String>());
@@ -33,19 +33,19 @@ public class TeacherService {
 
         foundTeacher.addSubject(subject);
 
-        teacherDao.update(foundTeacher.getId(), foundTeacher);
+        userDao.update(foundTeacher.getId(), foundTeacher);
     }
 
-    public void listExams(Teacher teacher) {
+    // public void listExams(User user) {
 
-    }
+    // }
 
     /*
-     * public void login(User teacher) throws DAOException {
+     * public void login(User user) throws DAOException {
      * UserDao userDao = new UserDao();
      * 
      * userDao.findAll((User user) -> {
-     * return user.getLogin().equals(teacher.getLogin());
+     * return user.getLogin().equals(user.getLogin());
      * }).forEach(System.out::println);
      * System.out.print('a');
      * }

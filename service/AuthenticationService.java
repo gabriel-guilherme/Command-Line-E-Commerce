@@ -6,66 +6,36 @@ import java.util.stream.Collectors;
 import javax.naming.AuthenticationException;
 
 import dao.AdminDao;
-import dao.StudentDao;
-import dao.TeacherDao;
+import dao.UserDao;
 import entity.Admin;
-import entity.Student;
-import entity.Teacher;
+import entity.User;
 import exception.DAOException;
 
 public class AuthenticationService {
 
-    public void register(Student student) throws DAOException, AuthenticationException {
-        StudentDao studentDao = new StudentDao();
+    public void register(User user) throws DAOException, AuthenticationException {
+        UserDao userDao = new UserDao();
 
-        List<Student> foundUsers = studentDao.findAll().stream()
-                .filter(user -> user.getLogin().equals(student.getLogin()))
+        List<User> foundUsers = userDao.findAll().stream()
+                .filter(currUser -> currUser.getLogin().equals(user.getLogin()))
                 .collect(Collectors.toList());
 
         if (!foundUsers.isEmpty()) {
             throw new AuthenticationException("Matrícula já registrada.");
         }
 
-        studentDao.save(student);
+        userDao.save(user);
     }
 
-    public void register(Teacher teacher) throws DAOException, AuthenticationException {
-        TeacherDao teacherDao = new TeacherDao();
+    public User login(User user) throws DAOException, AuthenticationException {
+        UserDao userDao = new UserDao();
 
-        List<Teacher> foundUsers = teacherDao.findAll().stream()
-                .filter(user -> user.getLogin().equals(teacher.getLogin()))
-                .collect(Collectors.toList());
-
-        if (!foundUsers.isEmpty()) {
-            throw new AuthenticationException("Matrícula já registrada.");
-        }
-
-        teacherDao.save(teacher);
-    }
-
-    public Student login(Student student) throws DAOException, AuthenticationException {
-        StudentDao studentDao = new StudentDao();
-
-        List<Student> findedUser = studentDao.findAll((Student user) -> {
-            return user.getLogin().equals(student.getLogin());
+        List<User> findedUser = userDao.findAll((User currUser) -> {
+            return currUser.getLogin().equals(user.getLogin());
         });
 
-        if (findedUser.isEmpty() || !findedUser.get(0).getPassword().equals(student.getPassword())) {
+        if (findedUser.isEmpty() || !findedUser.get(0).getPassword().equals(user.getPassword())) {
             throw new AuthenticationException("Matrícula não encontrada ou senha incorreta.");
-        }
-
-        return findedUser.get(0);
-    }
-
-    public Teacher login(Teacher teacher) throws DAOException, AuthenticationException {
-        TeacherDao teacherDao = new TeacherDao();
-
-        List<Teacher> findedUser = teacherDao.findAll((Teacher user) -> {
-            return user.getLogin().equals(teacher.getLogin());
-        });
-
-        if (findedUser.isEmpty() || !findedUser.get(0).getPassword().equals(teacher.getPassword())) {
-            throw new AuthenticationException("Nome de usuário não encontrado ou senha incorreta.");
         }
 
         return findedUser.get(0);

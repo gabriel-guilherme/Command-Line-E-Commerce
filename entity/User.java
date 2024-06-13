@@ -7,24 +7,33 @@ public class User extends Entity {
     private String login;
     private String password;
     private List<String> subjects;
+    private boolean isTeacher;
 
     /// CONSTRUCTOR
-    public User(String login, String password, String name) {
+    public User(String login, String password, String name, boolean isTeacher) {
         this.setLogin(login);
         this.setPassword(password);
         this.setName(name);
+        this.setIsTeacher(isTeacher);
     }
 
-    public User(String login, String password) {
-        this.setLogin(login);
-        this.setPassword(password);
-    }
+    /*
+     * public User(String login, String password) {
+     * this.setLogin(login);
+     * this.setPassword(password);
+     * this.setIsTeacher(false);
+     * }
+     */
 
     public void addSubject(String subject) {
         subjects.add(subject);
     }
 
     /// GETTERS
+
+    public boolean getIsTeacher() {
+        return this.isTeacher;
+    }
 
     public String getName() {
         return this.name;
@@ -44,6 +53,10 @@ public class User extends Entity {
 
     /// SETTERS
 
+    public void setIsTeacher(boolean isTeacher) {
+        this.isTeacher = isTeacher;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -62,6 +75,9 @@ public class User extends Entity {
 
     @Override
     public String toString() {
-        return "User{" + getName() + getLogin() + getSubjects() + getId() + "}";
+        if (isTeacher) {
+            return "Professor{" + getName() + getLogin() + getSubjects() + getId() + "}";
+        }
+        return "Aluno{" + getName() + getLogin() + getSubjects() + getId() + "}";
     }
 }

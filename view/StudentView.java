@@ -8,28 +8,29 @@ import java.util.stream.Collectors;
 
 import dao.ExamDao;
 import entity.Exam;
-import entity.Student;
+import entity.User;
 import exception.DAOException;
 import exception.StudentException;
 import service.StudentService;
 
 public class StudentView extends UiView {
-    private Student student;
+    private User student;
     // private Scanner scanner;
     private MainView mainView;
     private ExamView examView;
     private StudentService studentService = new StudentService();
 
-    StudentView(Scanner scanner, MainView mainView) {
+    StudentView(Scanner scanner, MainView mainView, User student) {
         this.scanner = scanner;
         this.mainView = mainView;
-    }
-
-    public void setStudent(Student student) {
         this.student = student;
     }
 
-    public Student getStudent() {
+    public void setStudent(User student) {
+        this.student = student;
+    }
+
+    public User getStudent() {
         return student;
     }
 
@@ -42,7 +43,7 @@ public class StudentView extends UiView {
             String input = bakeMenu("BEM VINDO " + student.getName() + " MENU DO ALUNO", options);
 
             if (input.equals("1")) {
-                studentService.listExams(student);
+                // studentService.listExams(student);
 
                 ExamDao examDao = new ExamDao();
 

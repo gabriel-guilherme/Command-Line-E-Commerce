@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dao.StudentDao;
-import entity.Student;
+import dao.UserDao;
+import entity.User;
 import exception.DAOException;
 import exception.StudentException;
 
 public class StudentService {
 
-    public void register(Student student, String subject) throws DAOException, StudentException {
-        StudentDao studentDao = new StudentDao();
+    public void register(User student, String subject) throws DAOException, StudentException {
+        UserDao userDao = new UserDao();
 
-        List<Student> foundUsers = studentDao.findAll().stream()
+        List<User> foundUsers = userDao.findAll().stream()
                 .filter(user -> user.getLogin().equals(student.getLogin()))
                 .collect(Collectors.toList());
 
-        Student foundStudent = foundUsers.get(0);
+        User foundStudent = foundUsers.get(0);
 
         if (foundStudent.getSubjects() == null) {
             foundStudent.setSubjects(new ArrayList<String>());
@@ -30,12 +30,12 @@ public class StudentService {
 
         foundStudent.addSubject(subject);
 
-        studentDao.update(foundStudent.getId(), foundStudent);
+        userDao.update(foundStudent.getId(), foundStudent);
     }
 
-    public void listExams(Student student) {
+    // public void listExams(Student student) {
 
-    }
+    // }
 
     /*
      * public void login(User student) throws DAOException {
