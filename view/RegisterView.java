@@ -24,7 +24,7 @@ public class RegisterView extends UiView {
         String name = bakeMenu("Insira o seu nome:");
 
         clearScreen();
-        String matriculation = bakeMenu("Insira a matricula para registro:");
+        String matriculation = bakeMenu("Insira o seu login para registro:");
 
         clearScreen();
         String password = bakeMenu("Insira sua senha:");

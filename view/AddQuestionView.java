@@ -60,34 +60,25 @@ public class AddQuestionView extends UiView {
             //////////////// MUDAR///////////////////////
             for (int i = 0; i < input; i++) {
                 clearScreen();
-                System.out.println("Informe o tipo da questão " + (i + 1) + ":\n");
-                Boolean isObjective = scanner.nextBoolean();
-                scanner.nextLine();
+                Boolean isObjective = Boolean.parseBoolean(bakeMenu("Informe o tipo da questão " + (i + 1) + ":\n"));
 
                 clearScreen();
-                System.out.println("Informe o enunciado da questão " + (i + 1) + ":\n");
-                String description = scanner.nextLine();
+                String description = bakeMenu("Informe o enunciado da questão " + (i + 1) + ":\n");
 
                 clearScreen();
-                System.out.println("Informe o valor da questão " + (i + 1) + ":\n");
-                Float value = scanner.nextFloat();
-                scanner.nextLine();
+                Float value = Float.parseFloat(bakeMenu("Informe o valor da questão " + (i + 1) + ":\n"));
 
-                Question question = new Question(description, isObjective, value);
+                Question question = new Question(description, isObjective, value, i);
 
                 if (isObjective) {
                     clearScreen();
                     System.out.println("Informe as 4 alternativas da questão " + (i + 1) + ":\n");
                     List<String> alternatives = new ArrayList<>();
 
-                    System.out.println("\nInforme a alternativa 1:\n");
-                    alternatives.add(scanner.nextLine());
-                    System.out.println("\nInforme a alternativa 2:\n");
-                    alternatives.add(scanner.nextLine());
-                    System.out.println("\nInforme a alternativa 3:\n");
-                    alternatives.add(scanner.nextLine());
-                    System.out.println("\nInforme a alternativa 4:\n");
-                    alternatives.add(scanner.nextLine());
+                    alternatives.add(bakeMenu("\nInforme a alternativa 1:\n"));
+                    alternatives.add(bakeMenu("\nInforme a alternativa 2:\n"));
+                    alternatives.add(bakeMenu("\nInforme a alternativa 3:\n"));
+                    alternatives.add(bakeMenu("\nInforme a alternativa 4:\n"));
 
                     question.setAlternatives(alternatives);
                 }
@@ -99,6 +90,7 @@ public class AddQuestionView extends UiView {
                     return;
                 }
 
+                questions.add(question);
             }
 
             examService.addExam(new Exam(name, subject, questions));

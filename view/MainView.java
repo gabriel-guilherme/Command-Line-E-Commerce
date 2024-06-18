@@ -5,14 +5,14 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainView extends UiView {
-    private LoginView studentLoginView;
+    private LoginView loginView;
     private RegisterView registerView;
     // private TeacherLoginView teacherLoginView;
     private PassphraseView passphraseView;
 
     public MainView(Scanner scanner) {
         this.scanner = scanner;
-        this.studentLoginView = new LoginView(this, scanner);
+        this.loginView = new LoginView(this, scanner);
         this.registerView = new RegisterView(this, scanner);
         // this.teacherLoginView = new TeacherLoginView(this, scanner);
         this.passphraseView = new PassphraseView(this, scanner);
@@ -28,7 +28,7 @@ public class MainView extends UiView {
 
         if (input.equals("1")) {
             clearScreen();
-            studentLoginView.startView();
+            loginView.startView();
         } else if (input.equals("2")) {
             clearScreen();
             registerView.startView();
@@ -37,9 +37,10 @@ public class MainView extends UiView {
             passphraseView.startView();
         } else if (input.equals("4")) {
             clearScreen();
+            scanner.close();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
 }

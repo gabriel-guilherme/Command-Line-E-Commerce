@@ -14,6 +14,9 @@ import exception.DAOException;
 public class AuthenticationService {
 
     public void register(User user) throws DAOException, AuthenticationException {
+        if (user.getLogin().equals("") || user.getName().equals("") || user.getPassword().equals("")) {
+            throw new AuthenticationException("Operação cancelada devido a espaços em branco.");
+        }
         UserDao userDao = new UserDao();
 
         List<User> foundUsers = userDao.findAll().stream()
@@ -21,7 +24,7 @@ public class AuthenticationService {
                 .collect(Collectors.toList());
 
         if (!foundUsers.isEmpty()) {
-            throw new AuthenticationException("Matrícula já registrada.");
+            throw new AuthenticationException("Usuário já registrado.");
         }
 
         userDao.save(user);
@@ -35,7 +38,7 @@ public class AuthenticationService {
         });
 
         if (findedUser.isEmpty() || !findedUser.get(0).getPassword().equals(user.getPassword())) {
-            throw new AuthenticationException("Matrícula não encontrada ou senha incorreta.");
+            throw new AuthenticationException("Usuário não encontrado ou senha incorreta.");
         }
 
         return findedUser.get(0);

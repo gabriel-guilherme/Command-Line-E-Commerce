@@ -37,7 +37,7 @@ public class AdminView extends UiView {
             mainView.startView();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
 }

@@ -35,6 +35,6 @@ public class UpdateAdminView extends UiView {
             adminView.startView();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 }

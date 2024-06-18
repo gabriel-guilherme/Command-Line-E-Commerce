@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import dao.ExamDao;
 import entity.Exam;
+import entity.Question;
 import exception.DAOException;
 import exception.ExamException;
 
@@ -24,4 +25,35 @@ public class ExamService {
 
         examDao.save(exam);
     }
+
+    /*
+     * public void updateQuestion(Exam exam, Question question, int questionNumber)
+     * {
+     * try {
+     * ExamDao examDao = new ExamDao();
+     * 
+     * Exam foundExam;
+     * 
+     * foundExam = examDao.findAll().stream()
+     * .filter(currExam -> currExam.getName().equals(exam.getName())
+     * && currExam.getSubject().equals(exam.getSubject()))
+     * .collect(Collectors.toList())
+     * .get(0);
+     * 
+     * // Question foundQuestion = foundExam.getQuestion(questionNumber);
+     * List<Question> questions = foundExam.getQuestions();
+     * 
+     * questions.set(questionNumber, question);
+     * 
+     * foundExam.setQuestions(questions);
+     * 
+     * System.out.println(foundExam.getId() + "      " + foundExam);
+     * examDao.update(foundExam.getId(), foundExam);
+     * 
+     * } catch (DAOException e) {
+     * System.out.println(e.getMessage());
+     * }
+     * }
+     */
+
 }

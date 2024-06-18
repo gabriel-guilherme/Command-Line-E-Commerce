@@ -36,7 +36,7 @@ public class PassphraseView extends UiView {
             mainView.startView();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
 }

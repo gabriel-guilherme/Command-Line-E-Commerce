@@ -11,17 +11,19 @@ public class Question extends Entity {
     private float grade;
 
     /// CONSTRUCTOR
-    public Question(String description, boolean isObjective, float value) {
+    public Question(String description, boolean isObjective, float value, int id) {
         this.setDescription(description);
         this.setType(isObjective);
         this.setValue(value);
+        this.setId(id);
     }
 
-    public Question(String description, boolean isObjective, List<String> alternatives, float value) {
+    public Question(String description, boolean isObjective, List<String> alternatives, float value, int id) {
         this.setDescription(description);
         this.setType(isObjective);
         this.setValue(value);
         this.setAlternatives(alternatives);
+        this.setId(id);
     }
 
     /// GETTERS
@@ -78,12 +80,13 @@ public class Question extends Entity {
 
     @Override
     public String toString() {
-        StringBuilder formatedAlternatives = new StringBuilder();
-        for (int i = 0; i < getAlternatives().size(); i++) {
-            formatedAlternatives.append(i + 1).append(". ").append(getAlternatives().get(i)).append("\n");
-        }
 
         if (this.getType()) {
+            StringBuilder formatedAlternatives = new StringBuilder();
+            for (int i = 0; i < getAlternatives().size(); i++) {
+                formatedAlternatives.append(i + 1).append(". ").append(getAlternatives().get(i)).append("\n");
+            }
+
             return getDescription() + "\n\n" + formatedAlternatives.toString() + "\n";
         } else {
             return getDescription();

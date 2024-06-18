@@ -1,6 +1,8 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class User extends Entity {
     private String name;
@@ -8,6 +10,7 @@ public class User extends Entity {
     private String password;
     private List<String> subjects;
     private boolean isTeacher;
+    private List<Exam> exams;
 
     /// CONSTRUCTOR
     public User(String login, String password, String name, boolean isTeacher) {
@@ -29,7 +32,34 @@ public class User extends Entity {
         subjects.add(subject);
     }
 
+    public void addExam(Exam exam) {
+        if (exams == null) {
+            exams = new ArrayList<>();
+        }
+        exams.add(exam);
+    }
+
     /// GETTERS
+
+    public Exam getExam(Exam exam) {
+        /*
+         * if (exams == null) {
+         * exams = new ArrayList<>();
+         * }
+         */
+        Optional<Exam> foundExam = exams.stream()
+                .filter(currExam -> currExam.getName().equals(exam.getName())
+                        && currExam.getSubject().equals(exam.getSubject()))
+                .findFirst();
+        return foundExam.orElse(null);
+    }
+
+    public List<Exam> getExams() {
+        if (exams == null) {
+            exams = new ArrayList<>();
+        }
+        return exams;
+    }
 
     public boolean getIsTeacher() {
         return this.isTeacher;
@@ -52,6 +82,10 @@ public class User extends Entity {
     }
 
     /// SETTERS
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
 
     public void setIsTeacher(boolean isTeacher) {
         this.isTeacher = isTeacher;

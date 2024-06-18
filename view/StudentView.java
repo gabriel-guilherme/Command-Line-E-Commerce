@@ -2,14 +2,11 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-import dao.ExamDao;
-import entity.Exam;
 import entity.User;
 import exception.DAOException;
+import exception.ExamException;
 import exception.StudentException;
 import service.StudentService;
 
@@ -43,21 +40,15 @@ public class StudentView extends UiView {
             String input = bakeMenu("BEM VINDO " + student.getName() + " MENU DO ALUNO", options);
 
             if (input.equals("1")) {
-                // studentService.listExams(student);
-
-                ExamDao examDao = new ExamDao();
-
-                List<Exam> exams = examDao.findAll().stream().collect(Collectors.toList());
 
                 clearScreen();
-
-                options = (ArrayList<String>) examDao.findAll().stream().map(Exam::toString)
-                        .collect(Collectors.toList());
+                options = studentService.listExams(student);
 
                 int chosedExam = Integer.parseInt(bakeMenu("Escolha a prova", options));
 
-                examView = new ExamView(scanner, this, exams.get(chosedExam - 1));
+                examView = new ExamView(scanner, this, studentService.getExams(student).get(chosedExam - 1), student);
 
+                clearScreen();
                 examView.startView();
             } else if (input.equals("2")) {
 
@@ -74,13 +65,19 @@ public class StudentView extends UiView {
 
                 mainView.startView();
             }
-        } catch (DAOException | StudentException e) {
+        } catch (DAOException | StudentException | ExamException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");
+            this.startView();
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            clearScreen();
+
+            System.out.println("\"Erro: Por favor, insira um número válido.\n");
+            this.startView();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
 }
