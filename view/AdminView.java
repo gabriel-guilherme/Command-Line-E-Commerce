@@ -23,18 +23,27 @@ public class AdminView extends UiView {
                 Arrays.asList("Registrar professor", "Mudar palavra-chave", "Voltar"));
         String input = bakeMenu("ADMIN MENU", options);
 
-        if (input.equals("1")) {
-            clearScreen();
+        try {
+            if (input.equals("1")) {
+                clearScreen();
 
-            registerView.startView();
-        } else if (input.equals("2")) {
-            clearScreen();
+                registerView.startView();
+            } else if (input.equals("2")) {
+                clearScreen();
 
-            updateAdminView.startView();
-        } else if (input.equals("3")) {
-            clearScreen();
+                updateAdminView.startView();
+            } else if (input.equals("3")) {
+                clearScreen();
 
-            mainView.startView();
+                mainView.startView();
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            clearScreen();
+            System.out.println("\"Erro: Por favor, insira um número válido.\n");
+
+            this.startView();
         }
 
         // scanner.close();

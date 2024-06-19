@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import entity.Exam;
 import entity.Question;
-import exception.DAOException;
+
 import exception.ExamException;
 import service.ExamService;
 
@@ -24,22 +24,6 @@ public class AddQuestionView extends UiView {
         this.teacherView = teacherView;
         this.name = name;
         this.subject = subject;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getSubject() {
-        return this.subject;
     }
 
     public void startView() {
@@ -60,13 +44,20 @@ public class AddQuestionView extends UiView {
             //////////////// MUDAR///////////////////////
             for (int i = 0; i < input; i++) {
                 clearScreen();
-                Boolean isObjective = Boolean.parseBoolean(bakeMenu("Informe o tipo da questão " + (i + 1) + ":\n"));
+                String isObjectiveInput = bakeMenu(
+                        "Informe o tipo da questão " + (i + 1) + " (1 para objetiva e 0 para discursiva):\n");
+
+                if (!isObjectiveInput.equals("1") && !isObjectiveInput.equals("0")) {
+                    throw new NumberFormatException();
+                }
 
                 clearScreen();
                 String description = bakeMenu("Informe o enunciado da questão " + (i + 1) + ":\n");
 
                 clearScreen();
                 Float value = Float.parseFloat(bakeMenu("Informe o valor da questão " + (i + 1) + ":\n"));
+
+                Boolean isObjective = isObjectiveInput.equals("1");
 
                 Question question = new Question(description, isObjective, value, i);
 
@@ -94,7 +85,7 @@ public class AddQuestionView extends UiView {
             }
 
             examService.addExam(new Exam(name, subject, questions));
-        } catch (DAOException | ExamException e) {
+        } catch (ExamException e) {
             clearScreen();
             System.out.println(e.getMessage());
             return;

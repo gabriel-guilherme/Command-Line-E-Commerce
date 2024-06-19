@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import entity.Exam;
 import entity.User;
-import exception.DAOException;
 import exception.ExamException;
 import service.ExamService;
 
@@ -43,7 +42,7 @@ public class CorrectView extends UiView {
 
             // correctView.startView();
 
-        } catch (DAOException | ExamException e) {
+        } catch (ExamException e) {
             clearScreen();
 
             System.out.println(e.getMessage());

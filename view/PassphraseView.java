@@ -2,9 +2,6 @@ package view;
 
 import java.util.Scanner;
 
-import javax.naming.AuthenticationException;
-
-import exception.DAOException;
 import service.AuthenticationService;
 
 public class PassphraseView extends UiView {
@@ -29,7 +26,7 @@ public class PassphraseView extends UiView {
 
             authenticationService.admin(input);
             adminView.startView();
-        } catch (AuthenticationException | DAOException e) {
+        } catch (exception.AuthenticationException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");

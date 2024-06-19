@@ -10,6 +10,7 @@ public class Exam extends Entity {
     private List<Question> questions;
     private boolean isClosed = false;
     private ArrayList<String> students;
+    private boolean isCorrected = false;
     // private float grade;
     // private float value;
 
@@ -28,6 +29,14 @@ public class Exam extends Entity {
     }
 
     /// GETTERS
+
+    public String getCorrected() {
+        if (!isCorrected) {
+            return "";
+        }
+
+        return " | Revisada";
+    }
 
     public float getGrade() {
         return questions.stream()
@@ -84,6 +93,10 @@ public class Exam extends Entity {
     }
 
     /// SETTERS
+
+    public void setCorrected(boolean param) {
+        this.isCorrected = param;
+    }
 
     public void setStudents(ArrayList<String> students) {
         this.students = students;

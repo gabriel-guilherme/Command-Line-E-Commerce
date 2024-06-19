@@ -6,7 +6,6 @@ import java.util.Scanner;
 import entity.Exam;
 import entity.Question;
 import entity.User;
-import exception.DAOException;
 import exception.ExamException;
 import exception.StudentException;
 import service.ExamService;
@@ -106,11 +105,14 @@ public class ExamView extends UiView {
 
                 exam.setBoolStatus(true);
                 studentService.saveExam(exam, student);
+            } else {
+                exam.setCorrected(true);
+                studentService.saveExam(exam, student);
             }
 
             System.out.println("Prova fechada.\n");
             previousView.startView();
-        } catch (DAOException | StudentException | ExamException e) {
+        } catch (StudentException | ExamException e) {
             clearScreen();
             System.out.println("Erro: " + e.getMessage() + "\n");
             previousView.startView();

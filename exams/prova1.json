@@ -1,0 +1,31 @@
+{
+    "name": "prova1",
+    "Questions": [
+        {
+            "description": "enunciado",
+            "isObjective": false,
+            "value": 4
+        },
+        {
+            "description": "enunciado2",
+            "isObjective": true,
+            "alternatives": [
+                "alt1",
+                "alt2",
+                "alt3",
+                "alt4"
+            ],
+            "value": 3.23
+        },
+        {
+            "description": "enunciado3",
+            "isObjective": false,
+            "value": 2.74
+        },
+        {
+            "description": "enunciado4",
+            "isObjective": false,
+            "value": 10
+        }
+    ]
+}

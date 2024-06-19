@@ -2,10 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-import javax.naming.AuthenticationException;
-
 import entity.User;
-import exception.DAOException;
 import service.AuthenticationService;
 
 public class LoginView extends UiView {
@@ -43,7 +40,7 @@ public class LoginView extends UiView {
 
             userView.startView();
 
-        } catch (AuthenticationException | DAOException e) {
+        } catch (exception.AuthenticationException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");

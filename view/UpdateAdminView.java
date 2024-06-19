@@ -2,9 +2,8 @@ package view;
 
 import java.util.Scanner;
 
-import javax.naming.AuthenticationException;
+import exception.AuthenticationException;
 
-import exception.DAOException;
 import service.AuthenticationService;
 
 public class UpdateAdminView extends UiView {
@@ -28,7 +27,7 @@ public class UpdateAdminView extends UiView {
             System.out.println("Palavra-chave modificada.\n");
 
             adminView.startView();
-        } catch (DAOException | AuthenticationException e) {
+        } catch (AuthenticationException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");

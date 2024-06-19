@@ -2,10 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-import javax.naming.AuthenticationException;
-
 import entity.User;
-import exception.DAOException;
 import service.AuthenticationService;
 
 public class RegisterView extends UiView {
@@ -40,7 +37,7 @@ public class RegisterView extends UiView {
 
             clearScreen();
             System.out.println("Cadastro realizado com sucesso.\n");
-        } catch (DAOException | AuthenticationException e) {
+        } catch (exception.AuthenticationException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");

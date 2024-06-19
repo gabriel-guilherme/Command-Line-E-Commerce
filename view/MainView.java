@@ -26,18 +26,27 @@ public class MainView extends UiView {
 
         String input = bakeMenu("MENU PRINCIPAL", options);
 
-        if (input.equals("1")) {
-            clearScreen();
-            loginView.startView();
-        } else if (input.equals("2")) {
-            clearScreen();
-            registerView.startView();
-        } else if (input.equals("3")) {
-            clearScreen();
-            passphraseView.startView();
-        } else if (input.equals("4")) {
-            clearScreen();
+        try {
+            if (input.equals("1")) {
+                clearScreen();
+                loginView.startView();
+            } else if (input.equals("2")) {
+                clearScreen();
+                registerView.startView();
+            } else if (input.equals("3")) {
+                clearScreen();
+                passphraseView.startView();
+            } else if (input.equals("4")) {
+                clearScreen();
 
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            clearScreen();
+            System.out.println("\"Erro: Por favor, insira um número válido.\n");
+
+            this.startView();
         }
 
         // scanner.close();

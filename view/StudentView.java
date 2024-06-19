@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import entity.User;
-import exception.DAOException;
-import exception.ExamException;
 import exception.StudentException;
 import service.StudentService;
 
@@ -21,14 +19,6 @@ public class StudentView extends UiView {
         this.scanner = scanner;
         this.mainView = mainView;
         this.student = student;
-    }
-
-    public void setStudent(User student) {
-        this.student = student;
-    }
-
-    public User getStudent() {
-        return student;
     }
 
     @Override
@@ -64,8 +54,10 @@ public class StudentView extends UiView {
                 clearScreen();
 
                 mainView.startView();
+            } else {
+                throw new IndexOutOfBoundsException();
             }
-        } catch (DAOException | StudentException | ExamException e) {
+        } catch (StudentException e) {
             clearScreen();
 
             System.out.println(e.getMessage() + "\n");

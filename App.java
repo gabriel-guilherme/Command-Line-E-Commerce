@@ -23,16 +23,6 @@ public class App {
         mainView.startView();
 
         scanner.close();
-        /*
-         * ExamDao examDao = new ExamDao();
-         * 
-         * try {
-         * System.out.println(examDao.findAll());
-         * } catch (DAOException e) {
-         * // TODO Auto-generated catch block
-         * e.printStackTrace();
-         * }
-         */
 
     }
 }

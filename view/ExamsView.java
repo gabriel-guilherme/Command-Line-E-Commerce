@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 
 import entity.Exam;
 import entity.User;
-import exception.DAOException;
-import exception.StudentException;
+import exception.TeacherException;
 import service.TeacherService;
 
 public class ExamsView extends UiView {
@@ -37,7 +36,7 @@ public class ExamsView extends UiView {
 
             clearScreen();
             correctView.startView();
-        } catch (DAOException | StudentException e) {
+        } catch (TeacherException e) {
             clearScreen();
 
             System.out.println(e.getMessage());

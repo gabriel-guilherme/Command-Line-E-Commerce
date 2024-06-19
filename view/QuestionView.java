@@ -5,7 +5,6 @@ import java.util.Scanner;
 import entity.Exam;
 import entity.Question;
 import entity.User;
-import exception.DAOException;
 import exception.StudentException;
 import service.StudentService;
 
@@ -46,7 +45,7 @@ public class QuestionView extends UiView {
 
             studentService.updateQuestion(exam, question, student);
             clearScreen();
-        } catch (DAOException | StudentException e) {
+        } catch (StudentException e) {
             System.out.println(e.getMessage());
         }
     }

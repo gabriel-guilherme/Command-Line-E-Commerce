@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import entity.User;
-import exception.DAOException;
 import exception.TeacherException;
 import service.TeacherService;
 
@@ -24,14 +23,6 @@ public class TeacherView extends UiView {
         this.examsView = new ExamsView(scanner, this, user);
     }
 
-    public void setTeacher(User user) {
-        this.user = user;
-    }
-
-    public User getTeacher() {
-        return user;
-    }
-
     @Override
     public void startView() {
 
@@ -40,30 +31,40 @@ public class TeacherView extends UiView {
 
         String input = bakeMenu("BEM VINDO " + user.getName() + " MENU DO PROFESSOR", options);
 
-        if (input.equals("1")) {
-            clearScreen();
-
-            addExamView.startView();
-        } else if (input.equals("2")) {
-            clearScreen();
-
-            examsView.startView();
-        } else if (input.equals("3")) {
-            clearScreen();
-
-            input = bakeMenu("Informe a matéria que você quer registrar:");
-
-            try {
-                teacherService.register(user, input);
+        try {
+            if (input.equals("1")) {
                 clearScreen();
-            } catch (DAOException | TeacherException e) {
+
+                addExamView.startView();
+            } else if (input.equals("2")) {
                 clearScreen();
-                System.out.println(e.getMessage() + "\n");
+
+                examsView.startView();
+            } else if (input.equals("3")) {
+                clearScreen();
+
+                input = bakeMenu("Informe a matéria que você quer registrar:");
+
+                try {
+                    teacherService.register(user, input);
+                    clearScreen();
+                } catch (TeacherException e) {
+                    clearScreen();
+                    System.out.println(e.getMessage() + "\n");
+                }
+                this.startView();
+            } else if (input.equals("4")) {
+                clearScreen();
+                mainView.startView();
+            } else {
+                throw new IndexOutOfBoundsException();
             }
-            this.startView();
-        } else if (input.equals("4")) {
+
+        } catch (IndexOutOfBoundsException e) {
             clearScreen();
-            mainView.startView();
+            System.out.println("\"Erro: Por favor, insira um número válido.\n");
+
+            this.startView();
         }
     }
 
