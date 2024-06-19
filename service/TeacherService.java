@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import dao.ExamDao;
 import dao.UserDao;
+import entity.Exam;
 import entity.User;
 import exception.DAOException;
+import exception.StudentException;
 import exception.TeacherException;
 
 public class TeacherService {
@@ -34,6 +37,20 @@ public class TeacherService {
         foundTeacher.addSubject(subject);
 
         userDao.update(foundTeacher.getId(), foundTeacher);
+    }
+
+    public List<Exam> listExams(User teacher) throws DAOException, StudentException {
+        if (teacher.getSubjects() == null || teacher.getSubjects().isEmpty()) {
+            throw new StudentException("É necessário pelo menos uma matéria cadastrada.");
+        }
+
+        ExamDao examDao = new ExamDao();
+
+        List<Exam> exams = examDao.findAll().stream()
+                .filter(exam -> teacher.getSubjects().contains(exam.getSubject()))
+                .collect(Collectors.toList());
+
+        return exams;
     }
 
     // public void listExams(User user) {

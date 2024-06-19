@@ -6,9 +6,9 @@ public class Question extends Entity {
     private String description;
     private boolean isObjective;
     private List<String> alternatives;
-    private String response;
+    private String response = "";
     private float value;
-    private float grade;
+    private float grade = 0;
 
     /// CONSTRUCTOR
     public Question(String description, boolean isObjective, float value, int id) {

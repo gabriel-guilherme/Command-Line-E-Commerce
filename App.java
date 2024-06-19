@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import dao.AdminDao;
-import dao.ExamDao;
 import entity.Admin;
 import exception.DAOException;
 import exception.DatabaseException;
@@ -23,6 +22,7 @@ public class App {
         System.out.flush();
         mainView.startView();
 
+        scanner.close();
         /*
          * ExamDao examDao = new ExamDao();
          * 

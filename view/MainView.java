@@ -37,7 +37,7 @@ public class MainView extends UiView {
             passphraseView.startView();
         } else if (input.equals("4")) {
             clearScreen();
-            scanner.close();
+
         }
 
         // scanner.close();

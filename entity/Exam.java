@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,9 @@ public class Exam extends Entity {
     private String subject;
     private List<Question> questions;
     private boolean isClosed = false;
+    private ArrayList<String> students;
+    // private float grade;
+    // private float value;
 
     /// CONSTRUCTOR
     public Exam(String name, String subject, List<Question> questions) {
@@ -16,7 +20,33 @@ public class Exam extends Entity {
         this.setQuestions(questions);
     }
 
+    public void addStudent(String student) {
+        if (students == null) {
+            students = new ArrayList<String>();
+        }
+        students.add(student);
+    }
+
     /// GETTERS
+
+    public float getGrade() {
+        return questions.stream()
+                .map(Question::getGrade)
+                .reduce(0.0f, Float::sum);
+    }
+
+    public float getValue() {
+        return questions.stream()
+                .map(Question::getValue)
+                .reduce(0.0f, Float::sum);
+    }
+
+    public ArrayList<String> getStudents() {
+        if (students == null) {
+            students = new ArrayList<String>();
+        }
+        return students;
+    }
 
     public boolean getBoolStatus() {
         return isClosed;
@@ -55,6 +85,10 @@ public class Exam extends Entity {
 
     /// SETTERS
 
+    public void setStudents(ArrayList<String> students) {
+        this.students = students;
+    }
+
     public void setBoolStatus(boolean isClosed) {
         this.isClosed = isClosed;
     }
@@ -71,14 +105,9 @@ public class Exam extends Entity {
         this.questions = questions;
     }
 
-    // public void setQuestions(Question question, int i) {
-    // this.questions.get(i).put(question);
-    // }
-
     @Override
     public String toString() {
-        return getName() + " | " + getSubject() + " | " + getStatus();
-        // return "Exam{" + getSubject() + " " + getName() + getQuestions() + "}";
+        return getName() + " | " + getSubject() + " | Nota: " + getGrade() + " de " + getValue();
     }
 
 }
