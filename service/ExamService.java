@@ -92,8 +92,7 @@ public class ExamService {
                 List<Question> questions = exam.getQuestions();
 
                 questions.forEach((question) -> {
-                        if (question.getType() && question.getCorrectAlternative() == question.getResponse()) {
-                                System.out.println("asdfasdfa");
+                        if (question.getType() && question.getCorrectAlternative().equals(question.getResponse())) {
                                 question.setGrade(question.getValue());
                         }
                 });
