@@ -71,6 +71,8 @@ public class AddQuestionView extends UiView {
                     alternatives.add(bakeMenu("\nInforme a alternativa 3:\n"));
                     alternatives.add(bakeMenu("\nInforme a alternativa 4:\n"));
 
+                    question.setCorrectAlternative(bakeMenu("Informe a alternativa correta (1-4)"));
+
                     question.setAlternatives(alternatives);
                 }
 

@@ -24,6 +24,7 @@ public class AddExamView extends UiView {
 
         if (user.getSubjects() == null || user.getSubjects().isEmpty()) {
             System.out.println("Cadastre ao menos uma matéria para adicionar provas.\n");
+            teacherView.startView();
         } else {
             try {
                 ArrayList<String> options = new ArrayList<>(

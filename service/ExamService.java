@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import dao.ExamDao;
 import dao.UserDao;
 import entity.Exam;
+import entity.Question;
 //import entity.Question;
 import entity.User;
 import exception.DAOException;
@@ -85,5 +86,16 @@ public class ExamService {
                 } catch (DAOException e) {
                         throw new ExamException(e.getMessage(), e);
                 }
+        }
+
+        public void correctAlternativeQuestions(Exam exam) throws ExamException {
+                List<Question> questions = exam.getQuestions();
+
+                questions.forEach((question) -> {
+                        if (question.getType() && question.getCorrectAlternative() == question.getResponse()) {
+                                System.out.println("asdfasdfa");
+                                question.setGrade(question.getValue());
+                        }
+                });
         }
 }

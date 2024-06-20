@@ -29,7 +29,7 @@ public class TeacherView extends UiView {
         ArrayList<String> options = new ArrayList<>(
                 Arrays.asList("Adicionar prova", "Corrigir provas", "Registrar nova matéria", "Voltar"));
 
-        String input = bakeMenu("BEM VINDO " + user.getName() + " MENU DO PROFESSOR", options);
+        String input = bakeMenu("Bem vindo " + user.getName() + ",\n\n" + "MENU DO PROFESSOR", options);
 
         try {
             if (input.equals("1")) {
@@ -50,7 +50,6 @@ public class TeacherView extends UiView {
                     clearScreen();
                 } catch (TeacherException e) {
                     clearScreen();
-                    System.out.println(e.getMessage() + "\n");
                 }
                 this.startView();
             } else if (input.equals("4")) {

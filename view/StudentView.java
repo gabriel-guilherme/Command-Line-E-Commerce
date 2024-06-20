@@ -27,7 +27,7 @@ public class StudentView extends UiView {
             ArrayList<String> options = new ArrayList<>(
                     Arrays.asList("Provas", "Registrar nova matéria", "Voltar"));
 
-            String input = bakeMenu("BEM VINDO " + student.getName() + " MENU DO ALUNO", options);
+            String input = bakeMenu("Bem vindo " + student.getName() + ",\n\n" + "MENU DO ALUNO", options);
 
             if (input.equals("1")) {
 

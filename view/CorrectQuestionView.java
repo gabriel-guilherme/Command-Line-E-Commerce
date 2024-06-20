@@ -33,8 +33,9 @@ public class CorrectQuestionView extends UiView {
             }
 
             input = Float
-                    .parseFloat(bakeMenu("Questão: " + question.getDescription() + "           " + question.getValue()
-                            + "\n\nResposta: " + question.getResponse()));
+                    .parseFloat(
+                            bakeMenu("Questão: " + question.getDescription() + "           Vale: " + question.getValue()
+                                    + "\n\nResposta: " + question.getResponse()));
 
             if (input > question.getValue()) {
                 throw new ExamException("Pontuação maior do que a nota possível");

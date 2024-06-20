@@ -6,6 +6,7 @@ public class Question extends Entity {
     private String description;
     private boolean isObjective;
     private List<String> alternatives;
+    private String correctAlternative;
     private String response = "";
     private float value;
     private float grade = 0;
@@ -27,6 +28,10 @@ public class Question extends Entity {
     }
 
     /// GETTERS
+
+    public String getCorrectAlternative() {
+        return correctAlternative;
+    }
 
     public float getGrade() {
         return this.grade;
@@ -53,6 +58,10 @@ public class Question extends Entity {
     }
 
     /// SETTERS
+
+    public void setCorrectAlternative(String alternative) {
+        this.correctAlternative = alternative;
+    }
 
     public void setGrade(float grade) {
         this.grade = grade;

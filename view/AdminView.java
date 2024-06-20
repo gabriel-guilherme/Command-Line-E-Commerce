@@ -21,7 +21,7 @@ public class AdminView extends UiView {
 
         ArrayList<String> options = new ArrayList<>(
                 Arrays.asList("Registrar professor", "Mudar palavra-chave", "Voltar"));
-        String input = bakeMenu("ADMIN MENU", options);
+        String input = bakeMenu("MENU ADMIN", options);
 
         try {
             if (input.equals("1")) {

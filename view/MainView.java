@@ -22,7 +22,7 @@ public class MainView extends UiView {
     public void startView() {
 
         ArrayList<String> options = new ArrayList<>(Arrays.asList("Entrar",
-                "Criar nova conta", "Admin", "Sair"));
+                "Registrar aluno", "Admin", "Sair"));
 
         String input = bakeMenu("MENU PRINCIPAL", options);
 

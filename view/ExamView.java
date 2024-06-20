@@ -54,7 +54,7 @@ public class ExamView extends UiView {
                     }
 
                     if (previousView instanceof StudentView) {
-                        input = bakeMenu("Prova " + exam.getName(), options);
+                        input = bakeMenu("Prova " + exam.getName() + " (para fechar a prova digite f)", options);
 
                         if (input.equals("f")) {
                             clearScreen();
@@ -103,6 +103,7 @@ public class ExamView extends UiView {
                 exam.addStudent(student.getLogin());
                 examService.updateExam(exam);
 
+                examService.correctAlternativeQuestions(exam);
                 exam.setBoolStatus(true);
                 studentService.saveExam(exam, student);
             } else {
